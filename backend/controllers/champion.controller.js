@@ -66,11 +66,30 @@ export const getChampionById = async (req, res) => {
   try {
     const { id } = req.params;
     const champion = await Champion.findById(id);
+    console.log(champion);
     if (!champion) {
       return res.status(404).json({ message: "Champion not found" });
     }
     res.status(200).json(champion);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+//get all champ same origin
+export const getChampsByOrigin = async (req, res) => {
+  console.log("gizsmatska");
+  try {
+    const { origin } = req.query;
+    console.log("origin:", origin);
+    const filter = {};
+    if (origin) {
+      filter.origin = origin;
+    }
+    const champs = await Champion.find(filter);
+    console.log("champs:", champs);
+    res.status(200).json(champs);
+  } catch (error) {
+    res.status(500).json("Error fetching champions by origin");
   }
 };

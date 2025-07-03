@@ -5,10 +5,12 @@ import {
   getChampions,
   getChampionById,
   updateChampion,
+  getChampsByOrigin,
 } from "../controllers/champion.controller.js";
 
 const router = express.Router();
 
+router.get("/origin", getChampsByOrigin);
 router.get("/", getChampions);
 router.get("/:id", getChampionById);
 router.post("/", createNewChampion);
